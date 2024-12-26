@@ -25,7 +25,7 @@ export class BookmarkService {
   ) {
     return this.prisma.bookMark.findFirst({
       where: {
-        userId,
+        // userId,
         id: bookmarkId,
       },
     });

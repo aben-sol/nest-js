@@ -33,7 +33,6 @@ export class UsersController {
 
   @Patch()
   editUser(
-    // it says no by id so am getting the user
     @GetUser('id') userId: number,
     @Body() dto: EditUserDto,
   ) {

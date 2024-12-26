@@ -16,6 +16,9 @@ import {
   CreateBookmarkDto,
   EditBookmarkDto,
 } from './dto';
+import { Roles } from 'src/auth/enums/roles.decorator';
+import { Role } from 'src/auth/enums/role.enum';
+import { RoleGuard } from 'src/auth/enums/roles.guard';
 
 @UseGuards(JwtGuard)
 @Controller('bookmark')
@@ -33,6 +36,7 @@ export class BookmarkController {
   @Get(':id')
   getBookmarkById(
     @GetUser('id') userId: number,
+
     @Param('id', ParseIntPipe) bookmarkId: number,
   ) {
     return this.bookmarkService.getBookmarkById(
@@ -42,6 +46,8 @@ export class BookmarkController {
   }
 
   @Post()
+  @Roles(Role.ADMIN)
+  @UseGuards(RoleGuard)
   createBookmark(
     @GetUser('id') userId: number,
     @Body() dto: CreateBookmarkDto,
@@ -53,6 +59,8 @@ export class BookmarkController {
   }
 
   @Patch(':id')
+  @Roles(Role.ADMIN)
+  @UseGuards(RoleGuard)
   editBookmarkById(
     @GetUser('id') userId: number,
     @Param('id', ParseIntPipe) bookmarkId: number,
@@ -66,6 +74,8 @@ export class BookmarkController {
   }
 
   @Delete(':id')
+  @Roles(Role.ADMIN)
+  @UseGuards(RoleGuard)
   deleteBookmarkById(
     @GetUser('id') userId: number,
     @Param('id', ParseIntPipe) bookmarkId: number,
